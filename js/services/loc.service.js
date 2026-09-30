@@ -30,14 +30,15 @@ export const locService = {
     save,
     setFilterBy,
     setSortBy,
-    getLocCountByRateMap
+    getLocCountByRateMap,
+    getLocCountByUpdateMap
 }
 
 function query() {
     return storageService.query(DB_KEY)
         .then(locs => {
             if (gFilterBy.txt) {
-                const regex = new RegExp(gFilterBy.txt, 'i') 
+                const regex = new RegExp(gFilterBy.txt, 'i')
                 locs = locs.filter(loc => regex.test(loc.name) || regex.test(loc.geo.address))
             }
             if (gFilterBy.minRate) {
@@ -50,7 +51,7 @@ function query() {
                 locs = locs.slice(startIdx, startIdx + PAGE_SIZE)
             }
 
-console.log('gSortBy:', gSortBy)
+            console.log('gSortBy:', gSortBy)
             if (gSortBy.rate !== undefined) {
                 locs.sort((p1, p2) => (p1.rate - p2.rate) * gSortBy.rate)
             } else if (gSortBy.name !== undefined) {
@@ -82,6 +83,7 @@ function save(loc) {
     }
 }
 
+
 function setFilterBy(filterBy = {}) {
     if (filterBy.txt !== undefined) gFilterBy.txt = filterBy.txt
     if (filterBy.minRate !== undefined && !isNaN(filterBy.minRate)) gFilterBy.minRate = filterBy.minRate
@@ -99,6 +101,28 @@ function getLocCountByRateMap() {
             }, { high: 0, medium: 0, low: 0 })
             locCountByRateMap.total = locs.length
             return locCountByRateMap
+        })
+}
+
+function getLocCountByUpdateMap() {
+    return storageService.query(DB_KEY)
+        .then(locs => {
+            const locCountByUpdatedMap = locs.reduce((time, loc) => {
+
+                const secondsPast = Math.round((Date.now() - loc.updatedAt) / 1000)
+                 const minutesPast = Math.floor(secondsPast / 60)
+                const hoursPast = Math.floor(minutesPast / 60)
+
+                if (loc.createdAt === loc.updatedAt) time.never++
+
+                else if (hoursPast < 24) time.today++
+
+                else  time.past++
+
+                return time
+            }, { never: 0, today: 0, past: 0 })
+            locCountByUpdatedMap.total = locs.length
+            return locCountByUpdatedMap
         })
 }
 

@@ -64,6 +64,7 @@ function renderLocs(locs) {
     elLocList.innerHTML = strHTML || 'No locs to show'
 
     renderLocStats()
+     renderLocStatsTime()
 
     if (selectedLocId) {
         const selectedLoc = locs.find(loc => loc.id === selectedLocId)
@@ -272,6 +273,12 @@ function renderLocStats() {
     locService.getLocCountByRateMap().then(stats => {
         handleStats(stats, 'loc-stats-rate')
     })
+}
+
+function renderLocStatsTime(){
+  locService.getLocCountByUpdateMap().then(stats => {
+        handleStats(stats, 'loc-stats-time')
+})
 }
 
 function handleStats(stats, selector) {
