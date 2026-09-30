@@ -38,7 +38,8 @@
                     <div>
                         <label>
                             Min Rate:
-                            <input name="filter-by-rate" type="range" min="0" max="5" value="0" class="filter-rate-range"
+                            <input name="filter-by-rate" type="range" min="0" max="5" value="0"
+                                class="filter-rate-range"
                                 onchange="this.title=this.value;app.onSetFilterBy({minRate: this.value})" />
                         </label>
                     </div>
@@ -64,7 +65,7 @@
                         <div class="pie"></div>
                         <ul class="legend"></ul>
                     </div>
-                      <div class="loc-stats-time">
+                    <div class="loc-stats-time">
                         <h4>By updated time:</h4>
                         <div class="pie"></div>
                         <ul class="legend"></ul>
@@ -73,6 +74,22 @@
             </section>
         </div>
     </main>
+    <dialog class="loc-dialog">
+        <form method="dialog"  onsubmit="app.onSaveLoc()">
+            <h2>Location</h2>
+            <label for="loc-name">
+                Name:
+                <input type="text" name="loc-name" id="loc-name">
+            </label>
+            <label for="rate">
+                Rating:
+                <input type="number" name="rate" id="rate" min="1" max="5">
+            </label>
+            <button type="submit">Save</button>
+            <button type="button" onclick="app.onCancel()">Cancel</button>
+        </form>
+
+    </dialog>
     <pre class="debug" hidden></pre>
     <div class="user-msg"></div>
     <script type="module" src="js/app.controller.js"></script>
