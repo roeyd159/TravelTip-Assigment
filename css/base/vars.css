@@ -1,4 +1,4 @@
-:root {
+/* :root {
     --bg1: darkslateblue;
     --bg2: darkorchid;
     --bg3: darkmagenta;
@@ -7,7 +7,7 @@
     --color3: gold;
     --color4: goldenrod;
     --gray1: lightgray;
-}
+} */
 
 /* Another theme */
 /* :root {
@@ -20,3 +20,15 @@
     --color4: rgb(90, 66, 6);
     --gray1: lightgray;
 } */
+
+
+:root {
+    --bg1: rgb(243, 217, 115);
+    --bg2: rgb(168, 105, 60);
+    --bg3: rgb(214, 164, 79);
+    --color1: rgb(112, 73, 56);
+    --color2: rgb(255, 246, 125);
+    --color3: gold;
+    --color4: goldenrod;
+    --gray1: rgb(142, 49, 49);
+}

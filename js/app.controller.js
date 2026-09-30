@@ -21,7 +21,6 @@ window.app = {
     onSetSortBy,
     onSetFilterBy,
     onSaveLoc,
-    openModal,
     onCancel,
 
 }
